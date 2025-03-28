@@ -1,0 +1,36 @@
+# importing modules 
+import pandas as pd 
+import requests 
+from bs4 import BeautifulSoup as soup 
+# parsing https link 
+html=requests.get('https://www.tripadvisor.in/Hotel_Review-g304556
+d11935439-Reviews-Novotel_Chennai_OMR
+Chennai_Madras_Chennai_District_Tamil_Nadu.html') 
+# getting response 
+html.status_code 
+# scraping hotel names 
+hotels=[] 
+for name in bsobj.findAll('div',{'class':'listing_title'}):    
+hotels.append(name.text.strip()) 
+hotels 
+# scraping ratings details 
+ratings = []  
+for rating in bsobj.findAll('a',{'class':'ui_bubble_rating'}):    
+ratings.append(rating['alt']) 
+ratings 
+
+# scraping reviews of hotels 
+reviews = []  
+for review in bsobj.findAll('a',{'class':'review_count'}):   
+reviews.append(review.text.strip()) 
+reviews 
+# scraping prices of hotel 
+price = []  
+for p in bsobj.findAll('div',{'class':'price-wrap'}):    
+price.append(p.text.replace('₹','').strip()) 
+price[:5] 
+# compiling extracted data into python lists 
+d1 = {'Hotel':hotel,'Ratings':ratings,'No_of_Reviews':reviews,'Price':price} 
+# converting lists into dataframe using pandas 
+df = pd.DataFrame.from_dict(d1) 
+print(df) 
